@@ -117,6 +117,6 @@ ws.sheet_view.zoomScale = 85
 # Save workbook
 wb.save(output_file)
 
-print("✅ Completed Successfully")
+print("Completed Successfully")
 print("Output File:", output_file)
 print("Total Irregular Failures:", len(filtered_df))
