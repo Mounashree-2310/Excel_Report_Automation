@@ -31,3 +31,29 @@ jobs:
         with:
           name: Irregular-Test-Failure-Report
           path: Irregular_Test_Failures.xlsx
+
+      - name: Notify Teams
+        shell: pwsh
+        run: |
+          $body = @{
+            text = @"
+Irregular Test Failure Report Generated
+
+Repository:
+Excel_Report_Automation
+
+Report:
+Irregular-Test-Failure-Report
+
+Status:
+Success
+
+Please download the report from the latest GitHub Actions run.
+"@
+          } | ConvertTo-Json
+
+          Invoke-RestMethod `
+            -Uri "${{ secrets.TEAMS_WEBHOOK_URL }}" `
+            -Method Post `
+            -ContentType "application/json" `
+            -Body $body
