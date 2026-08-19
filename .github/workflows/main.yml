@@ -33,42 +33,37 @@ jobs:
           path: Irregular_Test_Failures.xlsx
 
       - name: Notify Teams
-   shell: pwsh
-  run: |
-    $body = @{
-      type = "AdaptiveCard"
-      '$schema' = "http://adaptivecards.io/schemas/adaptive-card.json"
-      version = "1.4"
-      body = @(
-        @{
-          type = "TextBlock"
-          text = "Irregular Test Failure Report Generated"
-          size = "Large"
-          weight = "Bolder"
-        },
-        @{
-          type = "TextBlock"
-          text = "Repository: Excel_Report_Automation"
-        },
-        @{
-          type = "TextBlock"
-          text = "Report: Irregular-Test-Failure-Report"
-        },
-        @{
-          type = "TextBlock"
-          text = "Status: Success"
-        },
-        @{
-          type = "TextBlock"
-          text = "Please download the report from the latest GitHub Actions run."
-        }
-      )
-    } | ConvertTo-Json -Depth 10
-
-    Invoke-RestMethod -Uri "${{ secrets.TEAMS_WEBHOOK_URL }}" `
-      -Method Post `
-      -ContentType "application/json" `
-      -Body $body
+        shell: pwsh
+        run: |
+          $body = @{
+            type = "AdaptiveCard"
+            '$schema' = "http://adaptivecards.io/schemas/adaptive-card.json"
+            version = "1.4"
+            body = @(
+              @{
+                type = "TextBlock"
+                text = "Irregular Test Failure Report Generated"
+                weight = "Bolder"
+                size = "Large"
+              },
+              @{
+                type = "TextBlock"
+                text = "Repository: Excel_Report_Automation"
+              },
+              @{
+                type = "TextBlock"
+                text = "Report: Irregular-Test-Failure-Report"
+              },
+              @{
+                type = "TextBlock"
+                text = "Status: Success"
+              },
+              @{
+                type = "TextBlock"
+                text = "Please download the report from the latest GitHub Actions run."
+              }
+            )
+          } | ConvertTo-Json -Depth 10
 
           Invoke-RestMethod -Uri "${{ secrets.TEAMS_WEBHOOK_URL }}" `
             -Method Post `
