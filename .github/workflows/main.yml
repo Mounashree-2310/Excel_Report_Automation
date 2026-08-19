@@ -36,15 +36,7 @@ jobs:
         shell: pwsh
         run: |
           $body = @{
-            text = "Irregular Test Failure Report Generated
-
-Repository: Excel_Report_Automation
-
-Report: Irregular-Test-Failure-Report
-
-Status: Success
-
-Please download the report from the latest GitHub Actions run."
+            text = "Irregular Test Failure Report Generated. Repository: Excel_Report_Automation. Report: Irregular-Test-Failure-Report. Status: Success. Please download the report from the latest GitHub Actions run."
           } | ConvertTo-Json
 
           Invoke-RestMethod -Uri "${{ secrets.TEAMS_WEBHOOK_URL }}" `
