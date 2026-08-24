@@ -83,5 +83,3 @@ jobs:
             -Method Post `
             -ContentType "application/json" `
             -Body $body
-
-has context menu
