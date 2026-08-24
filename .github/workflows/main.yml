@@ -1,62 +1,87 @@
 name: Generate Failure Report
-
+ 
 on:
   workflow_dispatch:
-
+ 
 permissions:
   contents: write
-
 jobs:
   generate-report:
-
+ 
     runs-on: windows-latest
-
+ 
     steps:
-
+ 
       - name: Checkout Repository
         uses: actions/checkout@v4
-
+ 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.14'
-
+ 
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-
+ 
       - name: Run Python Script
         run: |
           python pyth.py
-
+ 
       - name: Upload Generated Report Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Irregular-Test-Failure-Report
           path: Irregular_Test_Failures.xlsx
-
+ 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest-report
           name: Latest Failure Report
           generate_release_notes: true
-
+ 
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest-report
           files: Irregular_Test_Failures.xlsx
-
+ 
       - name: Notify Teams
         shell: pwsh
         run: |
           $body = @{
-            text = "Irregular Test Failure Report Generated - Download Report: https://github.com/Mounashree-2310/Excel_Report_Automation/releases - Status: Success"
-          } | ConvertTo-Json
-
+            type = "AdaptiveCard"
+            '$schema' = "http://adaptivecards.io/schemas/adaptive-card.json"
+            version = "1.4"
+            body = @(
+              @{
+                type = "TextBlock"
+                text = "Irregular Test Failure Report Generated"
+                size = "Large"
+                weight = "Bolder"
+              },
+              @{
+                type = "TextBlock"
+                text = "Download Report:"
+              },
+              @{
+                type = "TextBlock"
+                text = "https://github.com/Mounashree-2310/Excel_Report_Automation/releases/download/latest-report/Irregular_Test_Failures.xlsx%22
+                color = "Accent"
+                wrap = $true
+              },
+              @{
+                type = "TextBlock"
+                text = "Status: Success"
+              }
+            )
+          } | ConvertTo-Json -Depth 10
+ 
           Invoke-RestMethod `
             -Uri "${{ secrets.TEAMS_WEBHOOK_URL }}" `
             -Method Post `
             -ContentType "application/json" `
             -Body $body
+
+has context menu
