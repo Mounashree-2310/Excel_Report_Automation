@@ -65,12 +65,12 @@ jobs:
                 type = "TextBlock"
                 text = "Download Report:"
               },
-              @{
-                type = "TextBlock"
-                text = "https://github.com/Mounashree-2310/Excel_Report_Automation/releases/download/latest-report/Irregular_Test_Failures.xlsx"
-                color = "Accent"
-                wrap = $true
-              },
+              {
+               type = "TextBlock"
+               text = "https://github.com/Mounashree-2310/Excel_Report_Automation/releases"
+               color = "Accent"
+               wrap = $true
+              }
               @{
                 type = "TextBlock"
                 text = "Status: Success"
