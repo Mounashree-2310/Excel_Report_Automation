@@ -37,9 +37,13 @@ jobs:
         with:
           tag_name: latest-report
           name: Latest Failure Report
+          generate_release_notes: true
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest-report
           files: Irregular_Test_Failures.xlsx
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Notify Teams
         shell: pwsh
