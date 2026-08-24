@@ -5,6 +5,7 @@ on:
 
 permissions:
   contents: write
+
 jobs:
   generate-report:
 
@@ -51,32 +52,13 @@ jobs:
         shell: pwsh
         run: |
           $body = @{
-            type = "AdaptiveCard"
-            '$schema' = "http://adaptivecards.io/schemas/adaptive-card.json"
-            version = "1.4"
-            body = @(
-              @{
-                type = "TextBlock"
-                text = "Irregular Test Failure Report Generated"
-                size = "Large"
-                weight = "Bolder"
-              },
-              @{
-                type = "TextBlock"
-                text = "Download Report:"
-              },
-              {
-               type = "TextBlock"
-               text = "https://github.com/Mounashree-2310/Excel_Report_Automation/releases"
-               color = "Accent"
-               wrap = $true
-              }
-              @{
-                type = "TextBlock"
-                text = "Status: Success"
-              }
-            )
-          } | ConvertTo-Json -Depth 10
+            text = "Irregular Test Failure Report Generated
+
+Download Report:
+https://github.com/Mounashree-2310/Excel_Report_Automation/releases
+
+Status: Success"
+          } | ConvertTo-Json
 
           Invoke-RestMethod `
             -Uri "${{ secrets.TEAMS_WEBHOOK_URL }}" `
