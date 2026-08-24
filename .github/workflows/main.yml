@@ -51,17 +51,8 @@ jobs:
       - name: Notify Teams
         shell: pwsh
         run: |
-          $message = @"
-Irregular Test Failure Report Generated
-
-Download Report:
-https://github.com/Mounashree-2310/Excel_Report_Automation/releases
-
-Status: Success
-"@
-
           $body = @{
-            text = $message
+            text = "Irregular Test Failure Report Generated - Download Report: https://github.com/Mounashree-2310/Excel_Report_Automation/releases - Status: Success"
           } | ConvertTo-Json
 
           Invoke-RestMethod `
