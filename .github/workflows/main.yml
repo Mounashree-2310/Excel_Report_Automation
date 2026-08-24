@@ -58,8 +58,8 @@ jobs:
               @{
                 type = "TextBlock"
                 text = "Irregular Test Failure Report Generated"
-                size = "Large"
                 weight = "Bolder"
+                size = "Large"
               },
               @{
                 type = "TextBlock"
@@ -67,9 +67,7 @@ jobs:
               },
               @{
                 type = "TextBlock"
-                text = "https://github.com/Mounashree-2310/Excel_Report_Automation/releases/download/latest-report/Irregular_Test_Failures.xlsx%22
-                color = "Accent"
-                wrap = $true
+                text = "https://github.com/Mounashree-2310/Excel_Report_Automation/releases/download/latest-report/Irregular_Test_Failures.xlsx"
               },
               @{
                 type = "TextBlock"
@@ -77,7 +75,7 @@ jobs:
               }
             )
           } | ConvertTo-Json -Depth 10
- 
+
           Invoke-RestMethod `
             -Uri "${{ secrets.TEAMS_WEBHOOK_URL }}" `
             -Method Post `
